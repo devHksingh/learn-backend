@@ -10,7 +10,9 @@ function App() {
   useEffect(()=>{
     axios.get('/api/user')
      .then((response)=>{
-      setUser(response.data)
+      // const userData = response.data.testData
+      // console.log(userData);
+      setUser(response.data.testData)
      })
      .catch((err)=>{
       console.log(err);
@@ -20,15 +22,20 @@ function App() {
     <>
       <h1>Connect backend with frontend</h1>
       <p>User Data: {user.length}</p>
+      {/* {console.log(user['testData'][0]) */}
+      {/* } */}
       {
         Array.isArray(user) && user.map((userData)=>{
           
-          return <div key={userData.id}>
-              <h3>{userData.firstname} {userData.lastname}</h3>
+          return <div key={userData.id} >
+              <img src={userData.pic} alt="User pic"  />
+              <h3>{userData.title} {userData.firstName} {userData.lastName}</h3>
               <p>Email: {userData.email}</p>
               <p>Gender: {userData.gender}</p>
-              <p>pic: {userData.image}</p>
-              <p>pic: {userData.website}</p>
+              <p>country: {userData.country}</p>
+              <p>email: {userData.email}</p>
+              {/* <p>pic: {userData.pic}</p> */}
+              
               
           </div>
         })
