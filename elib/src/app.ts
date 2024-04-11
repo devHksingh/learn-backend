@@ -1,12 +1,14 @@
 // express setup 
 
 import express, { NextFunction, Request, Response } from 'express'
-import createHttpError, { HttpError } from 'http-errors'
-import { config } from './config/config'
+
 import globalErrorHandler from './middlewares/globalErrorHanlder'
 import userRouter from './user/userRouter'
 
 const app = express()
+
+// Returns middleware that only parses json and only looks at requests
+app.use(express.json())
 
 // Routes
 
