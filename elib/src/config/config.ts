@@ -7,6 +7,10 @@ const _config = {
     databaseUrl: process.env.MONGODB_URL,
     env: process.env.NODE_ENV,
     jwtSecret: process.env.JWT_SECRET,
+    cloudinaryCloud:process.env.CLOUDINARY_CLOUD_NAME,
+    cloudinaryApiKey:process.env.CLOUDINARY_CLOUD_API_KEY,
+    cloudinaryApiSecret:process.env.CLOUDINARY_CLOUD_API_SECRET,
+
 }
 
 export const config  = Object.freeze(_config) //read only

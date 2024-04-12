@@ -16,7 +16,7 @@ const upload = multer({
 
 // /api/books
 bookRouter.post('/',upload.fields([
-    {name:'cover' , maxCount:1},
+    {name:'coverImage' , maxCount:1},
     {name:'file',maxCount:1},
 ]),createBook)
 
