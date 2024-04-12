@@ -63,6 +63,46 @@ const createUser = async (req:Request,res:Response,next:NextFunction)=>{
     }
 }
 
+const loginUser = async(req:Request,res:Response,next:NextFunction)=>{
+
+    const { email,password } = req.body
+
+    if(!email || !password){
+        return next(createHttpError(400,"Email and Pssword are required for login"))
+    }
+
+    let user
+
+    try {
+         user = await userModel.findOne({email:email})
+    
+        if(!user){
+            return next(createHttpError(404,"User not found"))
+    
+        }
+    } catch (error) {
+        return next(createHttpError(500,"DB CONNECTION PROBLEM"))
+    }
+
+    const isMatch = await bcrypt.compare(password,user.password)
+
+    if(!isMatch){
+        return next(createHttpError(400,"Password is incorrect"))
+    }
+
+    // create access token
+
+    const token = sign({sub:user._id},config.jwtSecret as string,{
+        expiresIn:"7d",
+        algorithm:"HS256"
+    })
 
 
-export { createUser }
+
+
+    res
+    .status(200)
+    .json({accessToken:token})
+}
+
+export { createUser,loginUser }
