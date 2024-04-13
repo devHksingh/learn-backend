@@ -116,7 +116,7 @@ const updateBook = async (req: Request, res: Response, next: NextFunction) => {
       completeCoverImage = filename;
       const uploadResult = await cloudinary.uploader.upload(filePath, {
         filename_override: completeCoverImage,
-        folder: "book-covers",
+        folder: "book-cover",
         format: converMimeType,
       });
   
@@ -138,7 +138,7 @@ const updateBook = async (req: Request, res: Response, next: NextFunction) => {
       const uploadResultPdf = await cloudinary.uploader.upload(bookFilePath, {
         resource_type: "raw",
         filename_override: completeFileName,
-        folder: "book-pdfs",
+        folder: "book-pdf",
         format: "pdf",
       });
   
