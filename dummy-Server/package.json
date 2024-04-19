@@ -1,0 +1,23 @@
+{
+  "name": "dummy-server",
+  "version": "1.0.0",
+  "description": "dummy server for crud operation",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.ts"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "|",
+    "express"
+  ],
+  "author": "Harshit",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
