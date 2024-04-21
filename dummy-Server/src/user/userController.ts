@@ -2,6 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import createHttpError from "http-errors";
 import userModel from "./userModel";
 import bcrypt from 'bcryptjs'
+import { sign } from "jsonwebtoken";
+import crypto from 'crypto'
+import { config } from "../config/config";
 
 
 const createUser = async (req:Request,res:Response,next:NextFunction)=>{
@@ -27,15 +30,31 @@ const createUser = async (req:Request,res:Response,next:NextFunction)=>{
     // user store in db
     // user password -> hash
     const hashedPassword = await bcrypt.hash(password,10)
+
+    if(!hashedPassword){
+        const error = createHttpError(400,'Failed to create hashed password . try it again!!')
+        return next(error)
+    }
+    const newUser = await userModel.create({
+        name,
+        email,
+        password:hashedPassword
+    })
+    if(!newUser){
+        const error = createHttpError(400,'Failed to create user in DB . try it again!!')
+        return next(error)
+    }
+    // token generation :JWT
+    const token = sign({sub:newUser._id},config.jwtSecret as string,{expiresIn:'7d',algorithm:"HS256"})
+
     
-
-
     // 3.Response
 
     return res
     .status(200)
     .json({
-        messgae:"User created"
+        messgae:`User created and id is ${newUser._id} `,
+        token:token
     })
 }
 
