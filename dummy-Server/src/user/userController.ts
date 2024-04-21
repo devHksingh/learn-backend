@@ -14,6 +14,7 @@ const createUser = async (req:Request,res:Response,next:NextFunction)=>{
     //     return next(error)
     // }
     // 2.logic/process
+    // 
     // 3.Response
 
     return res
