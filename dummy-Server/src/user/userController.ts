@@ -51,11 +51,15 @@ const createUser = async (req:Request,res:Response,next:NextFunction)=>{
     // 3.Response
 
     return res
-    .status(200)
+    .status(201)
     .json({
         messgae:`User created and id is ${newUser._id} `,
         token:token
     })
 }
 
-export {createUser}
+const loginUser = async (req:Request,res:Response,next:NextFunction) =>{
+    res.json({message:'ok'})
+}
+
+export {createUser,loginUser}
