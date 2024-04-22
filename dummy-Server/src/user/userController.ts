@@ -59,7 +59,29 @@ const createUser = async (req:Request,res:Response,next:NextFunction)=>{
 }
 
 const loginUser = async (req:Request,res:Response,next:NextFunction) =>{
-    res.json({message:'ok'})
+
+    const {email,password} = req.body
+
+    const user = await userModel.findOne({email})
+
+    if(!user){
+       return next(createHttpError(404,"User not found"))
+    }
+
+    const isMatch = await bcrypt.compare(password,user.password)
+
+    if(!isMatch){
+        return next(createHttpError(400,"Password incorrect"))
+    }
+
+    // create accessToken
+
+    const token = sign({sub:user._id},config.jwtSecret as string,{
+        expiresIn:'7d',
+        algorithm:"HS256"
+    })
+
+    res.json({access_Token: token})
 }
 
 export {createUser,loginUser}
