@@ -9,7 +9,7 @@ import { AuthRequest } from "../middlewares/authenticate";
 
 const createBook = async (req:Request,res:Response,next:NextFunction)=>{
     
-    const {title,genre} = req.body
+    const {title,genre,description} = req.body
     console.log("files",req.files);
 
     const files = req.files as { [filename:string]:Express.Multer.File[]}
@@ -52,6 +52,7 @@ const createBook = async (req:Request,res:Response,next:NextFunction)=>{
         const newBook = await bookModel.create({
             title,
             genre,
+            description,
             author:_req.userId,
             coverImage:uploadResult.secure_url,
             file:bookFileUploadResult.secure_url
@@ -165,7 +166,7 @@ const updateBook = async (req: Request, res: Response, next: NextFunction) => {
 const listBooks = async (req: Request, res: Response, next: NextFunction)=>{
   try {
     // add pagination
-    const book = await bookModel.find()
+    const book = await bookModel.find().populate("author","name")
 
     res.json({book})
   } catch (error) {

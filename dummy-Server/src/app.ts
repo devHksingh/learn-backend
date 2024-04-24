@@ -6,9 +6,21 @@ import { config } from "./config/config";
 
 const app = express()
 
-app.use(cors({
-    origin: config.frontendDomain,
-}))
+// const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
+// app.use(cors({
+//     origin: config.frontendDomain,
+//     methods:allowedMethods
+// }))
+app.use(
+    cors({
+      origin: config.frontendDomain,
+    })
+  );
+
+// console.log(typeof(config.frontendDomain));
+
+
+// app.use(cors())
 app.use(express.json())
 
 // Routes
