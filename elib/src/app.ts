@@ -9,11 +9,21 @@ import { config } from './config/config'
 
 const app = express()
 
+// app.use(
+//     cors({
+//       origin: config.frontendDomain,
+//     })
+//   );
+
 app.use(
-    cors({
+  cors({
       origin: config.frontendDomain,
-    })
-  );
+  })
+);
+console.log(config.frontendDomain);
+console.log(typeof(config.frontendDomain));
+ 
+
 
 // Returns middleware that only parses json and only looks at requests
 app.use(express.json())
