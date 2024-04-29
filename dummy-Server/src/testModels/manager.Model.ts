@@ -1,7 +1,6 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-
-const adminSchema = new mongoose.Schema({
+const managerSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -31,8 +30,7 @@ const adminSchema = new mongoose.Schema({
     },
     taskHistory:{
         
-    }
-
+    },
 },{timestamps:true})
 
-export const Admin = mongoose.model('Admin',adminSchema)
+export const Manager = mongoose.model('Manager',managerSchema)
