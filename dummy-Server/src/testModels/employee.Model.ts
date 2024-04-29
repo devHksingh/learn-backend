@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const managerSchema = new mongoose.Schema({
+const employeeSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -37,4 +37,4 @@ const managerSchema = new mongoose.Schema({
     }
 },{timestamps:true})
 
-export const Manager = mongoose.model('Manager',managerSchema)
+export const Employee = mongoose.model('Employee',employeeSchema)
