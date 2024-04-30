@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const clientSchema = new mongoose.Schema({
     name:{
@@ -33,9 +33,10 @@ const clientSchema = new mongoose.Schema({
     refreshToken:{
         type:String
     },
-    taskHistory:{
-        
-    },
+    taskHistory:[{
+        type:Schema.Types.ObjectId,
+        ref:'Task'
+    }],
     
 },{timestamps:true})
 

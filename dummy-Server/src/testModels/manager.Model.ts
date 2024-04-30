@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+
 
 const managerSchema = new mongoose.Schema({
     name:{
@@ -28,9 +29,10 @@ const managerSchema = new mongoose.Schema({
     refreshToken:{
         type:String
     },
-    taskHistory:{
-        
-    },
+    taskHistory:[{
+        type:Schema.Types.ObjectId,
+        ref:'Task'
+    }],
     salary:{
         type:Number,
         required:true

@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+
 
 const taskSchema = new mongoose.Schema({
     ticketNumber:{
@@ -42,7 +43,8 @@ const taskSchema = new mongoose.Schema({
         required:true
     },
     clientDetail:{
-
+        type:Schema.Types.ObjectId,
+        ref:'Client'
     }
 
 },{timestamps:true})

@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const EmployeeTest = new mongoose.Schema({
+const employeeTestSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
@@ -28,9 +28,10 @@ const EmployeeTest = new mongoose.Schema({
     refreshToken:{
         type:String
     },
-    taskHistory:{
-        
-    },
+    taskHistory:[{
+        type:Schema.Types.ObjectId,
+        ref:'Task'
+    }],
     salary:{
         type:Number,
         required:true
@@ -40,3 +41,5 @@ const EmployeeTest = new mongoose.Schema({
         required:true, // manager|technician
     }
 })
+
+export const EmployeeTest = mongoose.model('EmployeeTest',employeeTestSchema)
