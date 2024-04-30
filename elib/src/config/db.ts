@@ -12,7 +12,7 @@ const connectDB = async()=>{
     })
 
     mongoose.connection.on("error",(err)=>{
-        console.log('Error inconnecting to database',err);
+        console.log('Error in connecting to database',err);
         
     })
 
