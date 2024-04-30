@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { config } from "./config";
-import { error } from "console";
+
 
 
 const connectDB = async()=>{
