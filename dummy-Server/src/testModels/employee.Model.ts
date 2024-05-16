@@ -28,6 +28,10 @@ const employeeSchema = new mongoose.Schema({
     refreshToken:{
         type:String
     },
+    role:{
+        type:String,
+        required:true
+    },
     taskHistory:[{
         type:Schema.Types.ObjectId,
         ref:'Task'
