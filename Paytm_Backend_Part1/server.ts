@@ -1,8 +1,8 @@
 import app from "./src/app";
-import { config } from "./src/config";
+import { Config } from "./src/config";
 
 const startServer = async () => {
-  const port = config.PORT;
+  const port = Config.port;
   try {
     app.listen(port, () => {
       console.log(`Server is Runing on ${port}`);
