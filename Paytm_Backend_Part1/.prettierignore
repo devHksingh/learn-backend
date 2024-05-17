@@ -35,6 +35,7 @@ README.md
 *.ejs
 *.snap
 
+tsconfig.json
 
 *.svg
 *.png
