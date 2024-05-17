@@ -36,3 +36,5 @@ const userSchema = new Schema({
         maxLength: 50
     }
 },{timestamps:true})
+
+export const User = mongoose.model('User',userSchema)
