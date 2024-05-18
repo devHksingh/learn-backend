@@ -1,5 +1,6 @@
 import express from "express";
 import userRoute from "./users/user.route";
+import globalErrorHandler from "./middlewares/globalErrorHanlder";
 
 const app = express();
 
@@ -13,5 +14,8 @@ app.use(express.json())
 
 app.use('/api/v1/users',userRoute)
 
+
+//  Global error handler
+app.use(globalErrorHandler)
 
 export default app;
