@@ -6,7 +6,8 @@ conf()
 const config_var = {
     port : process.env.PORT,
     databaseUrl:process.env.MONGODB_URL,
-    env:process.env.NODE_ENV
+    env:process.env.NODE_ENV,
+    jwtSecret:process.env.JWT_SECRET
 }
 
 export const Config = Object.freeze(config_var)
