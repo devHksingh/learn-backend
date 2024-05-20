@@ -24,7 +24,8 @@ const createUser = async (req:Request,res:Response,next:NextFunction)=>{
             lastName
         })
 
-        token =  genrateJWTToken({id:newUser._id})
+        token =  genrateJWTToken({id:newUser._id})    
+        
     } catch (error) {
         return next(createHttpError(500,"Error occured while creating a user"))
     }
@@ -32,7 +33,19 @@ const createUser = async (req:Request,res:Response,next:NextFunction)=>{
     return res.status(200).json({"messsage":"User is created successfully","token":token})
 }
 
+const getAllUser = async (req:Request,res:Response,next:NextFunction)=>{
+    let user 
+    try {
+        user = await User.find({}).select("-password -email")
+    } catch (error) {
+        return next(createHttpError(500,"Error occured while creating a user"))
+    }
+    return res.status(200).json({user})
+}
+
+
 
 export {
-    createUser
+    createUser,
+    getAllUser
 }
