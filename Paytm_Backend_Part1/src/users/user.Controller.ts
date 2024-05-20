@@ -38,7 +38,18 @@ const getAllUser = async (req:Request,res:Response,next:NextFunction)=>{
     try {
         user = await User.find({}).select("-password -email")
     } catch (error) {
-        return next(createHttpError(500,"Error occured while creating a user"))
+        return next(createHttpError(500,"Error occured while fetching  user details"))
+    }
+    return res.status(200).json({user})
+}
+
+const  getSingleUser = async (req:Request,res:Response,next:NextFunction)=>{
+    const id = req.params.userId
+    let user 
+    try {
+        user = await User.find({_id:id}).select("-password -email")
+    } catch (error) {
+        return next(createHttpError(500,"Error occured while fetching  user details"))
     }
     return res.status(200).json({user})
 }
@@ -47,5 +58,6 @@ const getAllUser = async (req:Request,res:Response,next:NextFunction)=>{
 
 export {
     createUser,
-    getAllUser
+    getAllUser,
+    getSingleUser
 }
