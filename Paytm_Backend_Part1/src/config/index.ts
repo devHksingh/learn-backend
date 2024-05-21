@@ -9,6 +9,7 @@ const config_var = {
     env:process.env.NODE_ENV,
     jwtSecret:process.env.JWT_SECRET,
     jwtTokenExpiry:process.env.JWT_TOKEN_EXPIRY,
+    forntendDomain:process.env.FRONTEND_DOMAIN,
 }
 
 export const Config = Object.freeze(config_var)

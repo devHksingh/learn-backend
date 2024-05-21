@@ -1,13 +1,14 @@
 import express from "express";
 import userRoute from "./users/user.route";
 import globalErrorHandler from "./middlewares/globalErrorHanlder";
+import cors from "cors";
+import { Config } from "./config";
 
 const app = express();
 
-// app.get("/", (req, res) => {
-//   res.status(200).send("Working fine");
-// });
-
+app.use(cors({
+    origin:Config.forntendDomain
+}))
 app.use(express.json())
 
 // user route
