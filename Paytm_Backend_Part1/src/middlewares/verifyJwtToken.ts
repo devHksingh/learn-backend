@@ -3,9 +3,15 @@ import jwt from "jsonwebtoken";
 import { Config } from "../config";
 import createHttpError from "http-errors";
 
+interface DecodedToken {
+  id: string;
+  iat:number;
+  exp:number;
+  // Add other properties if your JWT payload includes more information
+}
 export interface JwtTokenVerification extends Request {
   isTokenExp: boolean;
-  decodedToken: {};
+  decodedToken:DecodedToken
 }
 
 const verifyJwtToken = (req: Request, res: Response, next: NextFunction) => {
@@ -21,8 +27,8 @@ const verifyJwtToken = (req: Request, res: Response, next: NextFunction) => {
     );
     const _req = req as JwtTokenVerification;
     _req.isTokenExp = false;
-    _req.decodedToken = isValidToken;
-    // console.log(_req.decodedToken);
+    _req.decodedToken = isValidToken as DecodedToken;
+    console.log(_req.decodedToken);
 
     next();
   } catch (error) {
