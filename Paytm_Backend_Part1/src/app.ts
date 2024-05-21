@@ -6,17 +6,18 @@ import { Config } from "./config";
 
 const app = express();
 
-app.use(cors({
-    origin:Config.forntendDomain
-}))
-app.use(express.json())
+app.use(
+  cors({
+    origin: Config.forntendDomain,
+  }),
+);
+app.use(express.json());
 
 // user route
 
-app.use('/api/v1/users',userRoute)
-
+app.use("/api/v1/users", userRoute);
 
 //  Global error handler
-app.use(globalErrorHandler)
+app.use(globalErrorHandler);
 
 export default app;
