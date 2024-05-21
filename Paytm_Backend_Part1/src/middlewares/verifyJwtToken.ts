@@ -8,9 +8,13 @@ export interface JwtTokenVerification extends Request{
     decodedToken:{}
 }
 
-const verifyJwtToken = (req:Request,res:Response,next:NextFunction)=>{
-    const { token } = req.body
 
+const verifyJwtToken = (req:Request,res:Response,next:NextFunction)=>{
+    const authToken = req.header('Authorization')
+    if(!authToken || !authToken.startsWith('Bearer ')){
+        return next(createHttpError(403,"Invalid Auth token"))
+    }
+    const token = authToken.split(' ').at(1)
     try {
         const isValidToken = jwt.verify(token as string,Config.jwtSecret as string)
         const _req = req as JwtTokenVerification
@@ -27,3 +31,5 @@ const verifyJwtToken = (req:Request,res:Response,next:NextFunction)=>{
         }
     }
 }
+
+export default verifyJwtToken

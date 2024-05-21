@@ -1,11 +1,13 @@
 import express from "express"
 import { createUser, getAllUser, getSingleUser, userSignIn } from "./user.Controller"
+import verifyJwtToken from "../middlewares/verifyJwtToken"
 
 const userRoute = express.Router()
 
 
 
 userRoute.get('/',
+    verifyJwtToken,
     getAllUser
 )
 
@@ -18,6 +20,7 @@ userRoute.post('/',
 )
 
 userRoute.post('/signin',
+    verifyJwtToken,
     userSignIn
 )
 
