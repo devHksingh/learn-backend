@@ -3,7 +3,17 @@ import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken"
 import { Config } from "../config";
 
-const userSchema = new Schema({
+export interface UserDoc {
+    username: string;
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    isPasswordCorrect(password: string): Promise<boolean>;
+    genrateJWTToken(): string;
+}
+
+const userSchema = new Schema<UserDoc>({
     username: {
         type: String,
         required: true,
