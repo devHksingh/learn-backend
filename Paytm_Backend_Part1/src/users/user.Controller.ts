@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { User } from "./user.Model";
 import createHttpError from "http-errors";
 import genrateJWTToken from "../utils/jwtToken";
-
+import zod  from 'zod'
 
 
 const createUser = async (req:Request,res:Response,next:NextFunction)=>{
@@ -54,10 +54,48 @@ const  getSingleUser = async (req:Request,res:Response,next:NextFunction)=>{
     return res.status(200).json({user})
 }
 
+const userSignIn = async (req:Request,res:Response,next:NextFunction)=>{
+    const{username,password,email} =req.body
+    const signInReqschema = zod.object({
+        userName : zod.string().optional(),
+        email:zod.string().optional(),
+        password:zod.string().min(6)
+    }).refine(data=>data.userName || data.email)
+
+    const {success} = signInReqschema.safeParse(req.body)
+    console.log(req.body);
+    console.log(success);
+    if(!success){
+        return next(createHttpError(401, "Invalid user credentials"))
+    }
+     // Find user by username or email
+     let user
+    try {
+        user = await User.findOne({
+            $or:[{username:req.body.username},{email:req.body.email}]
+        })
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        // Check if password is correct
+        const isValidPassword = await user.isPasswordCorrect(req.body.password)
+        // const isPasswordValid = await user.isPasswordCorrect(password);
+        if (!isValidPassword) {
+            return next(createHttpError(401, "Invalid user credentials"))
+          }
+    } catch (error) {
+        return next(createHttpError(500,"Error occured while fetching  user details"))
+    }
+    
+    return res.status(200).json({user})
+    
+}
+
 
 
 export {
     createUser,
     getAllUser,
-    getSingleUser
+    getSingleUser,
+    userSignIn
 }
