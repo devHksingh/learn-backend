@@ -5,13 +5,13 @@ import createHttpError from "http-errors";
 
 interface DecodedToken {
   id: string;
-  iat:number;
-  exp:number;
+  iat: number;
+  exp: number;
   // Add other properties if your JWT payload includes more information
 }
 export interface JwtTokenVerification extends Request {
   isTokenExp: boolean;
-  decodedToken:DecodedToken
+  decodedToken: DecodedToken;
 }
 
 const verifyJwtToken = (req: Request, res: Response, next: NextFunction) => {

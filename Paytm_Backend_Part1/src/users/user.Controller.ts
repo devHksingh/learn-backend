@@ -110,69 +110,65 @@ const updateSingleUser = async (
   next: NextFunction,
 ) => {
   const updateBodySchema = zod.object({
-    password:zod.string().optional(),
-    firstName:zod.string().optional(),
-    lastName:zod.string().optional(),
-  })
+    password: zod.string().optional(),
+    firstName: zod.string().optional(),
+    lastName: zod.string().optional(),
+  });
   const _req = req as JwtTokenVerification;
-  const  { id } = _req.decodedToken;
+  const { id } = _req.decodedToken;
   // const userId = req.params.userId
   // console.log(id);
   // if(userId !== id ){
   //   return next(createHttpError(411,'Invalid userId'))
   // }
-  const {success} = updateBodySchema.safeParse(req.body)
-  if(!success){
-    return next(createHttpError(411,"Error while updating information"))
-  }
-  
-  let { password, firstName, lastName } = req.body;
-  console.log(req.body);
-  
-  
-  let updatedFeild
-  if(password){
-    password = await bcrypt.hash(password,10)
-    updatedFeild ={password}
+  const { success } = updateBodySchema.safeParse(req.body);
+  if (!success) {
+    return next(createHttpError(411, "Error while updating information"));
   }
 
-  if(password && firstName && lastName ){
-    updatedFeild = {password, firstName, lastName}
+  let { password, firstName, lastName } = req.body;
+  console.log(req.body);
+
+  let updatedFeild;
+  if (password) {
+    password = await bcrypt.hash(password, 10);
+    updatedFeild = { password };
   }
-  if(firstName){
-    updatedFeild = {firstName}
-    
+
+  if (password && firstName && lastName) {
+    updatedFeild = { password, firstName, lastName };
   }
-  if(firstName && password){
-    updatedFeild = {password, firstName}
+  if (firstName) {
+    updatedFeild = { firstName };
   }
-  if(firstName && lastName){
-    updatedFeild ={firstName,lastName}
+  if (firstName && password) {
+    updatedFeild = { password, firstName };
   }
-  
-  if(lastName && password){
-    updatedFeild = {password, lastName}
-  }else if(lastName){
-    updatedFeild = {lastName}
+  if (firstName && lastName) {
+    updatedFeild = { firstName, lastName };
+  }
+
+  if (lastName && password) {
+    updatedFeild = { password, lastName };
+  } else if (lastName) {
+    updatedFeild = { lastName };
   }
 
   let user;
-  
-  
+
   try {
-    user = await User.updateOne({_id:id},updatedFeild)
-    if(!user){
-      return next(createHttpError(404,'user not found'))
+    user = await User.updateOne({ _id: id }, updatedFeild);
+    if (!user) {
+      return next(createHttpError(404, "user not found"));
     }
     console.log(user);
-    
   } catch (error) {
-    return next(createHttpError(500,'DB error while fetching user details'))
+    return next(createHttpError(500, "DB error while fetching user details"));
   }
 
   return res.status(200).json({
-    message:"Update Successfull"
-  })
+    message: "Update Successfull",
+  });
 };
 
 export { createUser, getAllUser, getSingleUser, userSignIn, updateSingleUser };
