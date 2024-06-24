@@ -28,7 +28,7 @@ const verifyJwtToken = (req: Request, res: Response, next: NextFunction) => {
     const _req = req as JwtTokenVerification;
     _req.isTokenExp = false;
     _req.decodedToken = isValidToken as DecodedToken;
-    console.log(_req.decodedToken);
+    
 
     next();
   } catch (error) {

@@ -171,4 +171,48 @@ const updateSingleUser = async (
   });
 };
 
-export { createUser, getAllUser, getSingleUser, userSignIn, updateSingleUser };
+const getfilterUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const filter = req.query.filter ? String(req.query.filter) : "";
+  console.log(filter);
+  
+  let users;
+  try {
+    console.log('aaa');
+    
+    users = await User.find({
+      $or: [
+        {
+          firstName: {
+            "$regex": filter,
+          },
+        },
+        {
+          lastName: {
+            "$regex": filter,
+          },
+        },
+      ],
+    }).select("-password")
+    if (users) {
+      console.log('hiiiiiiiiii');
+      
+      console.log(users);
+    }
+  } catch (error) {
+    return next(createHttpError(500,'An error occurred while fetching users'))
+  }
+  return res.status(200).json({ users });
+};
+
+export {
+  createUser,
+  getAllUser,
+  getSingleUser,
+  userSignIn,
+  updateSingleUser,
+  getfilterUser,
+};
