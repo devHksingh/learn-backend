@@ -1,0 +1,12 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "description": "this is testing how to code in production levevl.Dont copy it blindly!.",
+  "main": "index.js",
+  "scripts": {
+    "dev":"node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "harshit",
+  "license": "ISC"
+}
