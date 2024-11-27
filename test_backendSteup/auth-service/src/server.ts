@@ -5,6 +5,8 @@ function welcome(name: string) {
   }
 
   console.log(user["name"]);
+  console.log(user["name"]);
+  console.log(user["name"]);
   
 }
 console.log('testing husky setup ')
