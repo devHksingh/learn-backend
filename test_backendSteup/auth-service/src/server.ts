@@ -1,12 +1,8 @@
+import { Config } from "./config";
+
 function welcome(name: string) {
   console.log("Welcome " + name);
-  const user ={
-    name:"harshit"
-  }
-
-  console.log(user["name"]);
-  console.log(user["name"]);
-  console.log(user["name"]);
+  console.log(Config.PORT)
   
 }
 console.log('testing husky setup ')
