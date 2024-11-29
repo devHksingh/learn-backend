@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch",
     "format:fix": "prettier . --write",
-    "format:check": "prettier . --check",
+    "format:check": "prettier . --check --runInBand",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky"
@@ -18,7 +18,9 @@
     "@eslint/js": "^9.15.0",
     "@types/express": "^5.0.0",
     "@types/http-errors": "^2.0.4",
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.10.0",
+    "@types/supertest": "^6.0.2",
     "@types/winston": "^2.4.4",
     "dotenv": "^16.4.5",
     "eslint": "^9.15.0",
@@ -26,6 +28,8 @@
     "lint-staged": "^15.2.10",
     "nodemon": "^3.1.7",
     "prettier": "3.4.1",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.16.0"
@@ -37,8 +41,11 @@
     ]
   },
   "dependencies": {
+    "-": "^0.0.1",
+    "D": "^1.0.0",
     "express": "^4.21.1",
     "http-errors": "^2.0.0",
+    "jest": "^29.7.0",
     "winston": "^3.17.0"
   }
 }

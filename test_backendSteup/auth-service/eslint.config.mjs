@@ -18,7 +18,8 @@ export default tseslint.config(
         },
         rules: {
             // "no-console": "error",
-            // "dot-notation":"error"
+            // "dot-notation":"error",
+            "@typescript-eslint/no-misused-promises":"off",
         },
     },
 );
