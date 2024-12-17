@@ -6,6 +6,7 @@ config();
 import helmet from "helmet";
 import mongoSanitize from 'express-mongo-sanitize'
 import hpp from "hpp";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -21,6 +22,10 @@ app.use(helmet());
 app.use("/api", limiter);
 app.use(mongoSanitize());
 app.use(hpp())
+
+// cookieParser
+app.use(cookieParser())
+
 // logging middleware
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));

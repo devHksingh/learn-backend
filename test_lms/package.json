@@ -15,6 +15,7 @@
     "nodemon": "^3.1.9"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "express": "^5.0.1",
     "express-mongo-sanitize": "^2.2.0",
