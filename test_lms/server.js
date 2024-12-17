@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 config();
 import helmet from "helmet";
 import mongoSanitize from 'express-mongo-sanitize'
+import hpp from "hpp";
 
 const app = express();
 const PORT = process.env.PORT;
@@ -19,6 +20,7 @@ const limiter = rateLimit({
 app.use(helmet());
 app.use("/api", limiter);
 app.use(mongoSanitize());
+app.use(hpp())
 // logging middleware
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
