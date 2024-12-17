@@ -7,6 +7,7 @@ import helmet from "helmet";
 import mongoSanitize from 'express-mongo-sanitize'
 import hpp from "hpp";
 import cookieParser from "cookie-parser";
+import cors from 'cors'
 
 const app = express();
 const PORT = process.env.PORT;
@@ -38,7 +39,21 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 // cookieParser
 app.use(cookieParser())
 
-
+// CORS configuration
+app.use(cors({
+    origin:process.env.CLIENT_URL || "http://localhost:5173",
+    credentials:true,
+    methods:["GET","POST","PUT","DELETE","PATCH","HEAD","OPTIONS"],
+    allowedHeaders:[
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "Accept",
+        "Access-Control-Allow-Origin",
+        "Origin",
+        "device-remember-token"
+    ]
+}))
 
 
 // API Routes
