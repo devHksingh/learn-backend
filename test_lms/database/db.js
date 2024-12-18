@@ -69,6 +69,22 @@ class DatabaseConnection {
       process.exit(1);
     }
   }
-  
+  async handleDisconnection() {
+    if (!this.isConnected) {
+      console.log("Attempting to reconneted to mongodb....");
+      this.connect();
+    }
+  }
+  async handleAppTermination() {
+    try {
+      await mongoose.connection.close();
+      console.log("MongoDB connection closed through app termination");
+      process.exit(0);
+    } catch (error) {
+      console.error("Error during database disconnection", error);
 
+      process.exit(1);
+    }
+  }
+  
 }
