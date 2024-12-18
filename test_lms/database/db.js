@@ -86,5 +86,13 @@ class DatabaseConnection {
       process.exit(1);
     }
   }
-  
+
+  getConnectionStatus() {
+    return {
+      isConnected: this.isConnected,
+      readyState: mongoose.connection.readyState,
+      host: mongoose.connection.host,
+      name: mongoose.connection.name,
+    };
+  }
 }
