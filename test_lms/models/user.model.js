@@ -82,6 +82,8 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 
@@ -106,14 +108,19 @@ userSchema.methods.getResetPasswordToken = function () {
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
-  this.resetPasswordExpire = new Date.now() + 10 * 60 * 1000; // 10 minutes
-  return resetToken
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // 10 minutes
+  return resetToken;
+};
+
+userSchema.methods.updateLastActive = function () {
+  this.lastActive = Date.now();
+  return this.save({ validateBeforeSave: false });
 };
 
 // virtuals field for total enrolled courses
 
-userSchema.virtual('totalEnrolledCourses').get(function(){
-    this.enrolledCourses.length
-})
+userSchema.virtual("totalEnrolledCourses").get(function () {
+  return this.enrolledCourses?.length;
+});
 
 export const User = mongoose.model("User", userSchema);
