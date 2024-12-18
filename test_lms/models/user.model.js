@@ -110,4 +110,10 @@ userSchema.methods.getResetPasswordToken = function () {
   return resetToken
 };
 
+// virtuals field for total enrolled courses
+
+userSchema.virtual('totalEnrolledCourses').get(function(){
+    this.enrolledCourses.length
+})
+
 export const User = mongoose.model("User", userSchema);
