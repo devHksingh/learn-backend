@@ -20,8 +20,7 @@ class DatabaseConnection {
     });
     mongoose.connection.on("disconnected", () => {
       console.log("mongodb disconnected");
-      this.isConnected = false;
-      //   TODO:attempt a reconnection
+      this.handleDisconnection()
     });
   }
 
