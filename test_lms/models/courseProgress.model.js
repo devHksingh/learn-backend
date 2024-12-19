@@ -54,3 +54,21 @@ const courseProgressSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+
+// update last accessed
+courseProgressSchema.methods.updateLastAccessed = function () {
+  this.lastAccessed = Date.now();
+  return this.save({ ValidateBeforeSave: false });
+};
+
+// calculate course completion
+courseProgressSchema.pre("save", function (next) {
+  if (this.lectureProgress.length > 0) {
+    const completedLectures = this.filter((lp) => lp.isCompleted).length;
+    this.completionPercentage = Math.round(
+      (completedLectures / this.lectureProgress.length) * 100
+    );
+    this.isCompleted = this.completionPercentage === 100
+  }
+  next();
+});
