@@ -1,11 +1,12 @@
 import cookieParser from 'cookie-parser'
-import express, { Request, Response } from 'express'
+import express, { Request, Response,NextFunction } from 'express'
 import rateLimit from 'express-rate-limit'
 import helmet from 'helmet'
 import cors from 'cors'
 import { Config } from './config'
 import mongoSanitize from 'express-mongo-sanitize'
 import hpp from 'hpp'
+import globalErrorHandler from './middleware/globalErrorHandler'
 
 const app = express()
 // CORS configuration
@@ -50,7 +51,17 @@ app.get('/health', (req: Request, res: Response) => {
 
 // Api route
 
+app.get('/health', (req: Request, res: Response) => {
+    res.status(200).json({
+        message: 'Server is healthy and working'
+    })
+})
+
 // Global Error Handeler
+
+app.use(globalErrorHandler)
+
+
 
 
 export default app
