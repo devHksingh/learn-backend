@@ -4,6 +4,8 @@ import rateLimit from 'express-rate-limit'
 import helmet from 'helmet'
 import cors from 'cors'
 import { Config } from './config'
+import mongoSanitize from 'express-mongo-sanitize'
+import hpp from 'hpp'
 
 const app = express()
 // CORS configuration
@@ -27,6 +29,8 @@ const limiter = rateLimit({
 // security middleware
 app.use(helmet())
 app.use('/api', limiter)
+app.use(mongoSanitize())
+app.use(hpp())
 
 // body parser middelware
 app.use(express.json({ limit: '10kb' }))
